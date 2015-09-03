@@ -1,5 +1,8 @@
 package net.alloyggp.escaperope;
 
-public interface Escaper {
+import java.util.List;
 
+public interface Escaper {
+    String escape(String input);
+    List<UnescapeResult> unescape(String input);
 }
