@@ -7,10 +7,15 @@ import java.util.stream.Collectors;
 //mean that undelimit() will work with arbitrary valid CSV outputs
 //from sources other than this class.
 public class CsvLineDelimiter implements Delimiter {
+    private static final CsvLineDelimiter INSTANCE = new CsvLineDelimiter();
     private final Escaper escaper = CsvFieldEscaper.create();
 
+    private CsvLineDelimiter() {
+        //Use create() instead
+    }
+
     public static Delimiter create() {
-        return new CsvLineDelimiter();
+        return INSTANCE;
     }
 
     @Override

@@ -10,7 +10,7 @@ public class EscapeCharDelimiter implements Delimiter {
     private final int delimiterChar;
     private final Escaper escaper;
 
-    public EscapeCharDelimiter(int delimiterChar, Escaper escaper) {
+    private EscapeCharDelimiter(int delimiterChar, Escaper escaper) {
         this.delimiterChar = delimiterChar;
         this.escaper = escaper;
     }

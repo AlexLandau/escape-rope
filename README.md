@@ -11,3 +11,15 @@ One possibility for returning control characters mixed with non-control characte
 One key idea here is that the Delimiter that joins strings together should be doing the escaping and unescaping, instead of relying on some other part of the program to handle that escaping correctly.
 
 The current philosophy is that minimizing the number of bugs that are in the code (or arise in client applications from using the code, even in unexpected ways) is more important than performance. Use cases that require high performance should be using something else anyway.
+
+TODO: NULL STRINGS. I'm guessing we'll sometimes want to force these into being empty strings and other times maintain their null-ness.
+
+TODO: Delimiters as a class for obtaining Delimiter instances.
+
+TODO: Signing strings.
+
+TODO: Limited output character sets.
+
+TODO: Consider arbitrary byte array conversion in addition to String conversion? Is the use of code points actually harmful because it prevents invalid strings from being persisted?
+
+TODO: Map<String, String> conversion in addition to List<String>?

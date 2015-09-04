@@ -7,6 +7,10 @@ import java.util.List;
 //Unescaping recognizes an unescaped comma as a control character.
 public class CsvFieldEscaper implements Escaper {
 
+    private CsvFieldEscaper() {
+        //Use create() instead
+    }
+
     public static Escaper create() {
         return new CsvFieldEscaper();
     }
