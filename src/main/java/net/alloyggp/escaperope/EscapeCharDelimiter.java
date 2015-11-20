@@ -15,16 +15,19 @@ public class EscapeCharDelimiter implements Delimiter {
         this.escaper = escaper;
     }
 
-    public static Delimiter create(int delimiterChar, int escapeChar) {
+    public static Delimiter createConvertingNulls(int delimiterChar, int escapeChar) {
         if (delimiterChar == escapeChar) {
             throw new IllegalArgumentException("The delimiter char and escape char should not be the same");
         }
-        Escaper escaper = EscapeCharEscaper.create(escapeChar, Collections.singleton(delimiterChar));
+        Escaper escaper = EscapeCharEscaper.createConvertingNulls(escapeChar, Collections.singleton(delimiterChar));
         return new EscapeCharDelimiter(delimiterChar, escaper);
     }
 
     @Override
     public String delimit(Iterable<String> inputs) {
+        if (inputs == null) {
+            throw new NullPointerException();
+        }
         StringBuilder sb = new StringBuilder();
         for (String input : inputs) {
             sb.append(escaper.escape(input));
@@ -35,6 +38,9 @@ public class EscapeCharDelimiter implements Delimiter {
 
     @Override
     public List<String> undelimit(String input) {
+        if (input == null) {
+            throw new NullPointerException();
+        }
         List<UnescapeResult> resultsWithDelimiters = escaper.unescape(input);
         List<String> textResults = new ArrayList<>();
         if (resultsWithDelimiters.size() == 0) {

@@ -35,10 +35,12 @@ public class FuzzTests {
         double roll = random.nextDouble();
         int stringLength;
         if (roll < 0.1) {
-            return "";
+            return null;
         } else if (roll < 0.2) {
-            stringLength = 1;
+            return "";
         } else if (roll < 0.3) {
+            stringLength = 1;
+        } else if (roll < 0.4) {
             stringLength = random.nextInt(5);
         } else if (roll < 0.75) {
             stringLength = random.nextInt(20);

@@ -5,11 +5,11 @@ public class Delimiters {
         //Not instantiable
     }
 
-    public static Delimiter getCsvLineDelimiter() {
-        return CsvLineDelimiter.create();
+    public static Delimiter getCsvLineDelimiter(NullBehavior nullBehavior) {
+        return CsvLineDelimiter.create(nullBehavior);
     }
 
-    public static Delimiter getEscapeCharDelimiter(int delimiterChar, int escapeChar) {
-        return EscapeCharDelimiter.create(delimiterChar, escapeChar);
+    public static Delimiter getEscapeCharDelimiterConvertingNulls(int delimiterChar, int escapeChar) {
+        return EscapeCharDelimiter.createConvertingNulls(delimiterChar, escapeChar);
     }
 }

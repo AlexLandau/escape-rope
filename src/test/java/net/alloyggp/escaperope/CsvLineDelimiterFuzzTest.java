@@ -9,7 +9,8 @@ import org.junit.Test;
 
 public class CsvLineDelimiterFuzzTest {
     @Test
-    public void testWithFixedChars() throws Exception {
+    public void testKeepingNulls() throws Exception {
+        //TODO: Add tricky Unicode characters
         List<Integer> charsToUseInString = Arrays.<Integer>asList(
                 0,
                 (int) ',',
@@ -19,7 +20,8 @@ public class CsvLineDelimiterFuzzTest {
                 (int) 'c',
                 (int) ' ',
                 (int) '"');
-        Delimiter delimiter = CsvLineDelimiter.create();
+        Delimiter delimiter = //CsvLineDelimiter.create(NullBehavior.KEEP);
+                Delimiters.getCsvLineDelimiter(NullBehavior.KEEP);
         for (int seed = 0; seed < 10000; seed++) {
             Random random = new Random(seed);
             try {
