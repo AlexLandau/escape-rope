@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import net.alloyggp.escaperope.rope.ListRope;
+import net.alloyggp.escaperope.rope.Rope;
+import net.alloyggp.escaperope.rope.StringRope;
+
 public class FuzzTests {
     private FuzzTests() {
         //not instantiable
@@ -21,14 +25,14 @@ public class FuzzTests {
         } else {
             numStrings = random.nextInt(1000);
         }
-        List<String> result = new ArrayList<String>(numStrings);
+        List<String> result = new ArrayList<>(numStrings);
         for (int i = 0; i < numStrings; i++) {
             result.add(getRandomString(random, charsToUseInString));
         }
         return result;
     }
 
-    private static String getRandomString(Random random, List<Integer> charsToUseInString) {
+    public static String getRandomString(Random random, List<Integer> charsToUseInString) {
         if (charsToUseInString.isEmpty()) {
             throw new IllegalArgumentException();
         }
@@ -56,5 +60,35 @@ public class FuzzTests {
             sb.appendCodePoint(codePoint);
         }
         return sb.toString();
+    }
+
+    private static List<Rope> getRandomRopes(Random random, List<Integer> charsToUseInString, int depth) {
+        int numRopes;
+        double roll = random.nextDouble();
+        if (roll < 0.01) {
+            numRopes = 0;
+        } else if (roll < 0.5) {
+            numRopes = random.nextInt(5);
+        } else if (roll < 0.95) {
+            numRopes = random.nextInt(10);
+        } else {
+            numRopes = random.nextInt(100);
+        }
+        List<Rope> result = new ArrayList<>(numRopes);
+        for (int i = 0; i < numRopes; i++) {
+            result.add(getRandomRope(random, charsToUseInString, depth + 1));
+        }
+        return result;
+    }
+
+    public static Rope getRandomRope(Random random, List<Integer> charsToUseInString) {
+        return getRandomRope(random, charsToUseInString, 0);
+    }
+    private static Rope getRandomRope(Random random, List<Integer> charsToUseInString, int depth) {
+        if (random.nextInt(depth + 2) == 0) {
+            return ListRope.create(getRandomRopes(random, charsToUseInString, depth));
+        } else {
+            return StringRope.create(getRandomString(random, charsToUseInString));
+        }
     }
 }

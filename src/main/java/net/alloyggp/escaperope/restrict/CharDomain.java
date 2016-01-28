@@ -1,4 +1,4 @@
-package net.alloyggp.escaperope;
+package net.alloyggp.escaperope.restrict;
 
 /**
  * A CharDomain represents a set of available characters. If you

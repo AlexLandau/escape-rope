@@ -1,4 +1,4 @@
-package net.alloyggp.escaperope;
+package net.alloyggp.escaperope.restrict;
 
 /**
  * Restricts a String into a narrower character set and reverses the
@@ -8,6 +8,6 @@ package net.alloyggp.escaperope;
 //In this case we should reverse the conversion correctly even if the
 //cases have been arbitrarily switched on a character-by-character basis.
 public interface Restricter {
-    String restrict(String input);
-    String unrestrict(String restrictedInput);
+    String restrict(String unrestricted);
+    String unrestrict(String restricted);
 }

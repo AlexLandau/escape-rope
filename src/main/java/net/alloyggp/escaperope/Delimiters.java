@@ -12,4 +12,8 @@ public class Delimiters {
     public static Delimiter getEscapeCharDelimiterConvertingNulls(int delimiterChar, int escapeChar) {
         return EscapeCharDelimiter.createConvertingNulls(delimiterChar, escapeChar);
     }
+
+    public static RopeDelimiter getPrototypeRopeDelimiter() {
+        return PrototypeRopeDelimiter.create();
+    }
 }

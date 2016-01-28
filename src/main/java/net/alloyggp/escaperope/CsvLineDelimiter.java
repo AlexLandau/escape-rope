@@ -1,7 +1,7 @@
 package net.alloyggp.escaperope;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 //This attempts to comply with a subset of RFC 4180. Note that this does NOT
 //mean that undelimit() will work with arbitrary valid CSV outputs
@@ -39,11 +39,13 @@ public class CsvLineDelimiter implements Delimiter {
         if (input == null) {
             throw new NullPointerException();
         }
-        List<UnescapeResult> results = escaper.unescape(input);
-        return results.stream()
-                .filter(result -> !result.isControlCharacter())
-                .map(UnescapeResult::getNonControlText)
-                .collect(Collectors.toList());
+        List<String> strings = new ArrayList<>();
+        for (UnescapeResult result : escaper.unescape(input)) {
+            if (!result.isControlCharacter()) {
+                strings.add(result.getNonControlText());
+            }
+        }
+        return strings;
     }
 
 }

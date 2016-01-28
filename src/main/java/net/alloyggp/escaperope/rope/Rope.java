@@ -16,6 +16,6 @@ import java.util.List;
 public interface Rope {
     boolean isList();
     boolean isString();
-    String getString();
-    List<Rope> getList();
+    String asString();
+    List<Rope> asList();
 }

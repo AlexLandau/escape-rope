@@ -1,9 +1,9 @@
 package net.alloyggp.escaperope;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -28,14 +28,24 @@ public class EscapeCharDelimiterFuzzTest {
             Random random = new Random(seed);
             try {
                 List<String> strings = FuzzTests.getRandomStrings(random, charsToUseInString);
-                List<String> convertedStrings = strings.stream()
-                        .map(s -> s == null ? "" : s)
-                        .collect(Collectors.toList());
+                List<String> convertedStrings = replaceNulls(strings);
                 Assert.assertEquals(convertedStrings, delimiter.undelimit(delimiter.delimit(strings)));
             } catch (Throwable t) {
                 throw new AssertionError("Seed was " + seed, t);
             }
         }
+    }
+
+    private List<String> replaceNulls(List<String> strings) {
+        List<String> results = new ArrayList<>(strings.size());
+        for (String string : strings) {
+            if (string != null) {
+                results.add(string);
+            } else {
+                results.add("");
+            }
+        }
+        return results;
     }
 
 }

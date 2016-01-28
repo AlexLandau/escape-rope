@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.IntStream;
 
 //This probably has lots of room for performance improvements.
 public class EscapeCharEscaper implements Escaper {
@@ -42,17 +41,15 @@ public class EscapeCharEscaper implements Escaper {
         if (input == null) {
             return "";
         }
-        return input.codePoints()
-            .flatMap(c -> {
-                if (allCharsToEscape.contains(c)) {
-                    return IntStream.of(escapeChar, c);
-                } else {
-                    return IntStream.of(c);
-                }
-            }).collect(() -> new StringBuilder(),
-                    StringBuilder::appendCodePoint,
-                    (sb1, sb2) -> sb1.append(sb2))
-            .toString();
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < input.length(); i++) {
+            int c = input.codePointAt(i);
+            if (allCharsToEscape.contains(c)) {
+                sb.appendCodePoint(escapeChar);
+            }
+            sb.appendCodePoint(c);
+        }
+        return sb.toString();
     }
 
     @Override
