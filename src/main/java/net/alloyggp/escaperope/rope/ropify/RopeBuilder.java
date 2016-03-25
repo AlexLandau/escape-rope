@@ -44,6 +44,18 @@ public class RopeBuilder {
         return ListRope.create(list);
     }
 
+    public void add(byte byteValue) {
+        add(Byte.toString(byteValue));
+    }
+
+    public void add(short shortValue) {
+        add(Short.toString(shortValue));
+    }
+
+    public void add(int intValue) {
+        add(Integer.toString(intValue));
+    }
+
     /**
      * Adds the string representation of the long value.
      */
@@ -51,7 +63,24 @@ public class RopeBuilder {
         add(Long.toString(longValue));
     }
 
-    public void add(boolean b) {
-        add(Boolean.toString(b));
+    public void add(boolean booleanValue) {
+        add(Boolean.toString(booleanValue));
+    }
+
+    public void add(float floatValue) {
+        add(Float.toString(floatValue));
+    }
+
+    public void add(double doubleValue) {
+        add(Double.toString(doubleValue));
+    }
+
+    /**
+     * Adds an entry with no contents. This can be used to
+     * ensure that indices for later entries are maintained
+     * if e.g. an element is only conditionally present.
+     */
+    public void addSpacer() {
+        add("");
     }
 }

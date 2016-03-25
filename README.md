@@ -30,6 +30,8 @@ TODO: Implementation(s) of Restricter
 
 TODO: Delimiter and RopeDelimiter implementations that take advantage of Restricter to replace the delimiter character
 
+TODO: More stream-friendliness
+
 The goal, currently, is an easy-to-use, reliable way to map from List<String> to String and back again, and additional tools building on that to make this a relatively powerful tool compared to the effort to get it working.
 
 Rope: A Rope is either a String or a list of Ropes. The idea is that it's fairly easy to come up with a set of converters ("weavers") between object types and Ropes, and this library can provide robust conversion between Ropes and Strings. This provides quick-and-dirty serialization that can be adapted for the various places strings can go (e.g. removing special characters) and is easy to look through. The downside is that there is no structured support for backwards-compatibility as in formats like protocol buffers, and it may also be verbose compared with such formats. It's also expected to be much slower at scale.

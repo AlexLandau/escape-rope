@@ -9,6 +9,7 @@ import net.alloyggp.escaperope.rope.Rope;
  *
  * <p>See {@link CoreWeavers} for Weavers for commonly-used types.
  */
+//TODO: Rename to just Weaver
 public interface RopeWeaver<T> {
     Rope toRope(T object);
     T fromRope(Rope rope);

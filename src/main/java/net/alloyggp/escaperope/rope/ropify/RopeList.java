@@ -41,12 +41,28 @@ public class RopeList implements Iterable<Rope> {
         return weaver.fromRope(list.get(i));
     }
 
+    public byte getByte(int i) {
+        return Byte.parseByte(list.get(i).asString());
+    }
+
+    public short getShort(int i) {
+        return Short.parseShort(list.get(i).asString());
+    }
+
     public int getInt(int i) {
         return Integer.parseInt(list.get(i).asString());
     }
 
     public long getLong(int i) {
         return Long.parseLong(list.get(i).asString());
+    }
+
+    public float getFloat(int i) {
+        return Float.parseFloat(list.get(i).asString());
+    }
+
+    public double getDouble(int i) {
+        return Double.parseDouble(list.get(i).asString());
     }
 
     public String getString(int i) {
@@ -56,6 +72,10 @@ public class RopeList implements Iterable<Rope> {
     @Override
     public Iterator<Rope> iterator() {
         return list.iterator();
+    }
+
+    public Rope getRope(int i) {
+        return list.get(i);
     }
 
 }
