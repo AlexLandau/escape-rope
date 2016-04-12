@@ -28,7 +28,7 @@ public class RopeBuilder {
         list.add(rope);
     }
 
-    public <T> void add(T object, RopeWeaver<? super T> weaver) {
+    public <T> void add(T object, Weaver<? super T> weaver) {
         list.add(weaver.toRope(object));
     }
 

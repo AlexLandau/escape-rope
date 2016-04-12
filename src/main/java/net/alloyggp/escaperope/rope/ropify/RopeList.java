@@ -10,7 +10,7 @@ import net.alloyggp.escaperope.rope.Rope;
 /**
  * A utility class for reading transformed contents of a ListRope.
  * The RopeList wraps the Rope and provides useful getters for
- * applying {@link RopeWeaver}s and core weavers.
+ * applying {@link Weaver}s and core weavers.
  */
 @Immutable
 public class RopeList implements Iterable<Rope> {
@@ -37,7 +37,7 @@ public class RopeList implements Iterable<Rope> {
         return Boolean.parseBoolean(list.get(i).asString());
     }
 
-    public <T> T get(int i, RopeWeaver<T> weaver) {
+    public <T> T get(int i, Weaver<T> weaver) {
         return weaver.fromRope(list.get(i));
     }
 

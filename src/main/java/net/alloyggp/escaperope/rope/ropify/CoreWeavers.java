@@ -22,7 +22,7 @@ import net.alloyggp.escaperope.rope.StringRope;
 public class CoreWeavers {
 
     //TODO: Handle null values
-    public static final RopeWeaver<Integer> INTEGER = new RopeWeaver<Integer>() {
+    public static final Weaver<Integer> INTEGER = new Weaver<Integer>() {
         @Override
         public Rope toRope(Integer i) {
             return StringRope.create(i.toString());
@@ -34,7 +34,7 @@ public class CoreWeavers {
         }
     };
 
-    public static final RopeWeaver<Long> LONG = new RopeWeaver<Long>() {
+    public static final Weaver<Long> LONG = new Weaver<Long>() {
         @Override
         public Rope toRope(Long l) {
             return StringRope.create(l.toString());
@@ -46,7 +46,7 @@ public class CoreWeavers {
         }
     };
 
-    public static final RopeWeaver<Double> DOUBLE = new RopeWeaver<Double>() {
+    public static final Weaver<Double> DOUBLE = new Weaver<Double>() {
         @Override
         public Rope toRope(Double d) {
             return StringRope.create(d.toString());
@@ -58,7 +58,7 @@ public class CoreWeavers {
         }
     };
 
-    public static final RopeWeaver<int[]> INT_ARRAY = new ListRopeWeaver<int[]>() {
+    public static final Weaver<int[]> INT_ARRAY = new ListWeaver<int[]>() {
         @Override
         protected void addToList(int[] array, RopeBuilder list) {
             for (int i = 0; i < array.length; i++) {
@@ -77,8 +77,8 @@ public class CoreWeavers {
     };
 
     //TODO: Should this have wildcards somewhere?
-    public static <T> RopeWeaver<List<T>> listOf(final RopeWeaver<T> innerTypeWeaver) {
-        return new ListRopeWeaver<List<T>>() {
+    public static <T> Weaver<List<T>> listOf(final Weaver<T> innerTypeWeaver) {
+        return new ListWeaver<List<T>>() {
             @Override
             protected void addToList(List<T> objects, RopeBuilder list) {
                 for (T object : objects) {
@@ -97,8 +97,8 @@ public class CoreWeavers {
         };
     }
 
-    public static <T> RopeWeaver<Set<T>> setOf(final RopeWeaver<T> innerTypeWeaver) {
-        return new ListRopeWeaver<Set<T>>() {
+    public static <T> Weaver<Set<T>> setOf(final Weaver<T> innerTypeWeaver) {
+        return new ListWeaver<Set<T>>() {
             @Override
             protected void addToList(Set<T> objects, RopeBuilder list) {
                 for (T object : objects) {
@@ -119,9 +119,9 @@ public class CoreWeavers {
         };
     }
 
-    public static <K, V> RopeWeaver<Map<K, V>> mapOf(final RopeWeaver<K> keyTypeWeaver,
-            final RopeWeaver<V> valueTypeWeaver) {
-        return new ListRopeWeaver<Map<K, V>>() {
+    public static <K, V> Weaver<Map<K, V>> mapOf(final Weaver<K> keyTypeWeaver,
+            final Weaver<V> valueTypeWeaver) {
+        return new ListWeaver<Map<K, V>>() {
             @Override
             protected void addToList(Map<K, V> map, RopeBuilder list) {
                 for (Map.Entry<K, V> entry : map.entrySet()) {
@@ -144,12 +144,12 @@ public class CoreWeavers {
     }
 
     //TODO: Singleton?
-    public static RopeWeaver<List<Integer>> listOfIntegers() {
+    public static Weaver<List<Integer>> listOfIntegers() {
         return listOf(INTEGER);
     }
 
-    public static <E extends Enum<E>> RopeWeaver<E> enumOf(final Class<E> enumClass) {
-        return new RopeWeaver<E>() {
+    public static <E extends Enum<E>> Weaver<E> enumOf(final Class<E> enumClass) {
+        return new Weaver<E>() {
             @Override
             public Rope toRope(E object) {
                 return StringRope.create(object.name());
@@ -162,8 +162,8 @@ public class CoreWeavers {
         };
     }
 
-    public static <T> RopeWeaver<T> singletonOf(final T singleton) {
-        return new RopeWeaver<T>() {
+    public static <T> Weaver<T> singletonOf(final T singleton) {
+        return new Weaver<T>() {
             @Override
             public Rope toRope(T object) {
                 return StringRope.create("");
@@ -176,8 +176,8 @@ public class CoreWeavers {
         };
     }
 
-    public static <T> RopeWeaver<T> nullable(final RopeWeaver<T> weaver) {
-        return new RopeWeaver<T>() {
+    public static <T> Weaver<T> nullable(final Weaver<T> weaver) {
+        return new Weaver<T>() {
             @Override
             public Rope toRope(T object) {
                 if (object == null) {

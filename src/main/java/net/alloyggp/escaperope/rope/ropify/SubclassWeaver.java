@@ -18,12 +18,12 @@ import java.util.Map.Entry;
  * is the type of the weaver, not the type of the object (if they differ).
  */
 @Deprecated //Not yet semantically stable.
-public class SubclassWeaver<T> extends ListRopeWeaver<T> {
-    private final Map<Class<? extends T>, RopeWeaver<? extends T>> subclassWeavers;
+public class SubclassWeaver<T> extends ListWeaver<T> {
+    private final Map<Class<? extends T>, Weaver<? extends T>> subclassWeavers;
     private final Map<Class<? extends T>, String> preferredIdentifiers;
     private final Map<String, Class<? extends T>> alternativeIdentifiers;
 
-    private SubclassWeaver(Map<Class<? extends T>, RopeWeaver<? extends T>> subclassWeavers,
+    private SubclassWeaver(Map<Class<? extends T>, Weaver<? extends T>> subclassWeavers,
             Map<Class<? extends T>, String> preferredIdentifiers,
             Map<String, Class<? extends T>> alternativeIdentifiers) {
         this.subclassWeavers = subclassWeavers;
@@ -42,10 +42,10 @@ public class SubclassWeaver<T> extends ListRopeWeaver<T> {
             throw new NullPointerException();
         }
         //TODO:  We could cache class-of-object to relevant subclass...
-        for (Entry<Class<? extends T>, RopeWeaver<? extends T>> entry : subclassWeavers.entrySet()) {
+        for (Entry<Class<? extends T>, Weaver<? extends T>> entry : subclassWeavers.entrySet()) {
             if (entry.getKey().isInstance(object)) {
                 list.add(preferredIdentifiers.get(entry.getKey()));
-                list.add(object, (RopeWeaver) entry.getValue());
+                list.add(object, (Weaver) entry.getValue());
                 return;
             }
         }
@@ -61,7 +61,7 @@ public class SubclassWeaver<T> extends ListRopeWeaver<T> {
             throw new RuntimeException("Could not find any subclass weavers that match the subclass identifier " +
                     subclassIdentifier + " of rope: " + list.getRope(1));
         }
-        RopeWeaver<? extends T> weaver = subclassWeavers.get(subclass);
+        Weaver<? extends T> weaver = subclassWeavers.get(subclass);
         return list.get(1, weaver);
     }
 
@@ -69,7 +69,7 @@ public class SubclassWeaver<T> extends ListRopeWeaver<T> {
     //e.g., all subclasses of a type have a corresponding subweaver in a weaver
 
     public static class SubclassWeaverBuilder<T> {
-        private final Map<Class<? extends T>, RopeWeaver<? extends T>> addedWeavers =
+        private final Map<Class<? extends T>, Weaver<? extends T>> addedWeavers =
                 new LinkedHashMap<>();
         private final Map<Class<? extends T>, String> preferredIdentifiers = new HashMap<>();
         private final Map<String, Class<? extends T>> alternativeIdentifiers = new HashMap<>();
@@ -77,11 +77,11 @@ public class SubclassWeaver<T> extends ListRopeWeaver<T> {
         private SubclassWeaverBuilder(Class<T> mainClass) {
         }
 
-        public <U extends T> SubclassWeaverBuilder<T> add(Class<U> subclass, RopeWeaver<U> weaver) {
+        public <U extends T> SubclassWeaverBuilder<T> add(Class<U> subclass, Weaver<U> weaver) {
             return add(subclass, subclass.getCanonicalName(), weaver);
         }
 
-        public <U extends T> SubclassWeaverBuilder<T> add(Class<U> subclass, String preferredIdentifier, RopeWeaver<U> weaver) {
+        public <U extends T> SubclassWeaverBuilder<T> add(Class<U> subclass, String preferredIdentifier, Weaver<U> weaver) {
             if (addedWeavers.containsKey(subclass)) {
                 throw new IllegalArgumentException("The class " + subclass + " already has a weaver specified.");
             }
