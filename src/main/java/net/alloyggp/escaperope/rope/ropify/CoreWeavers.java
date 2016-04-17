@@ -14,7 +14,6 @@ import net.alloyggp.escaperope.rope.StringRope;
 
 //TODO: Fill this out with additional core weavers.
 //TODO: Additional boxed primitive types
-//TODO: nullable
 //TODO: arrayOf
 //TODO: mapOf
 //TODO: sortedSetOf? sortedMapOf?
@@ -55,6 +54,18 @@ public class CoreWeavers {
         @Override
         public Double fromRope(Rope rope) {
             return Double.valueOf(rope.asString());
+        }
+    };
+
+    public static final Weaver<String> STRING = new Weaver<String>() {
+        @Override
+        public Rope toRope(String string) {
+            return StringRope.create(string);
+        }
+
+        @Override
+        public String fromRope(Rope rope) {
+            return rope.asString();
         }
     };
 
