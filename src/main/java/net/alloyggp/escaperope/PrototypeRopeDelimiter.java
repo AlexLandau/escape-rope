@@ -67,17 +67,17 @@ public class PrototypeRopeDelimiter implements RopeDelimiter {
 
         if (strings.get(0).equals("s")) {
             if (strings.size() != 2) {
-                throw new IllegalArgumentException();
+                throw new IllegalArgumentException("Expected exactly one string to follow 's' indicating a string entry, but strings were: " + strings);
             }
             return StringRope.create(strings.get(1));
         } else if (strings.get(0).equals("n")) {
             if (strings.size() != 1) {
-                throw new IllegalArgumentException();
+                throw new IllegalArgumentException("Expected 'n' indicating null to be only entry in list, but strings were: " + strings);
             }
             return StringRope.create(null);
         } else {
             if (!strings.get(0).equals("l")) {
-                throw new IllegalArgumentException();
+                throw new IllegalArgumentException("Expected first character in delimited rope to be 's', 'n', or 'l', but strings were: " + strings);
             }
             List<Rope> ropes = new ArrayList<>(strings.size() - 1);
             for (String string : strings.subList(1, strings.size())) {
