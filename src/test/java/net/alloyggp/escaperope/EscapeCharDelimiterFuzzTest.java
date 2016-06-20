@@ -13,15 +13,22 @@ public class EscapeCharDelimiterFuzzTest {
     public void testConvertingNulls() throws Exception {
         int delimiterChar = ',';
         int escapeChar = '\\';
-        //TODO: Add tricky Unicode characters
         List<Integer> charsToUseInString = Arrays.<Integer>asList(
                 0,
-                (int) ',',
-                (int) '\\',
+                (int) ',',  // 0x2c
+                (int) '\\', // 0x5c
                 (int) 'a',
                 (int) 'b',
                 (int) 'c',
-                (int) ' ');
+                (int) ' ',
+                0x2c5c,
+                0x5c2c,
+                0x1005c,
+                0x1002c,
+                0x12c5c,
+                0x15c2c,
+                0x15c5c,
+                0x12c2c);
         Delimiter delimiter = //EscapeCharDelimiter.createConvertingNulls(delimiterChar, escapeChar);
                 Delimiters.getEscapeCharDelimiterConvertingNulls(delimiterChar, escapeChar);
         for (int seed = 0; seed < 10000; seed++) {

@@ -28,7 +28,7 @@ public class SimpleNewlineRestricter implements Restricter {
             return null;
         }
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < restricted.length(); i++) {
+        for (int i = 0; i < restricted.length(); /* incremented manually */) {
             int codePoint = restricted.codePointAt(i);
             if (codePoint == escapeCharacter) {
                 if (i + 1 >= restricted.length()) {
@@ -55,6 +55,7 @@ public class SimpleNewlineRestricter implements Restricter {
             } else {
                 sb.appendCodePoint(codePoint);
             }
+            i += Character.charCount(codePoint);
         }
         return sb.toString();
     }

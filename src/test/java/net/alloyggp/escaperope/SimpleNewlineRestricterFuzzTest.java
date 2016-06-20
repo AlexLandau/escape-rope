@@ -13,7 +13,7 @@ import net.alloyggp.escaperope.restrict.SimpleNewlineRestricter;
 public class SimpleNewlineRestricterFuzzTest {
     @Test
     public void testRoundTripAndRestricted() throws Exception {
-        //TODO: Add tricky Unicode characters
+        //TODO: Add additional tricky Unicode characters
         List<Integer> charsToUseInString = Arrays.<Integer>asList(
                 0,
                 (int) ',',
@@ -24,7 +24,15 @@ public class SimpleNewlineRestricterFuzzTest {
                 (int) '\n',
                 (int) '\r',
                 (int) ' ',
-                (int) '"');
+                (int) '"',
+                0x2c5c,
+                0x5c2c,
+                0x1005c,
+                0x1002c,
+                0x12c5c,
+                0x15c2c,
+                0x15c5c,
+                0x12c2c);
         Restricter restricter = SimpleNewlineRestricter.createDefault();
         for (int seed = 0; seed < 100000; seed++) {
             Random random = new Random(seed);
@@ -44,7 +52,7 @@ public class SimpleNewlineRestricterFuzzTest {
 
     @Test
     public void testRoundTripAndRestrictedWithNondefaultEscapeChar() throws Exception {
-        //TODO: Add tricky Unicode characters
+        //TODO: Add additional tricky Unicode characters
         List<Integer> charsToUseInString = Arrays.<Integer>asList(
                 0,
                 (int) ',',
@@ -56,7 +64,15 @@ public class SimpleNewlineRestricterFuzzTest {
                 (int) '\n',
                 (int) '\r',
                 (int) ' ',
-                (int) '"');
+                (int) '"',
+                0x2c5c,
+                0x5c2c,
+                0x1005c,
+                0x1002c,
+                0x12c5c,
+                0x15c2c,
+                0x15c5c,
+                0x12c2c);
         Restricter restricter = SimpleNewlineRestricter.createWithEscapeChar('A');
         for (int seed = 0; seed < 100000; seed++) {
             Random random = new Random(seed);

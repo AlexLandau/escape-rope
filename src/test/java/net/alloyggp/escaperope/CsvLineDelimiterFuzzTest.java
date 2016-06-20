@@ -19,7 +19,15 @@ public class CsvLineDelimiterFuzzTest {
                 (int) 'b',
                 (int) 'c',
                 (int) ' ',
-                (int) '"');
+                (int) '"',
+                0x2c5c,
+                0x5c2c,
+                0x1005c,
+                0x1002c,
+                0x12c5c,
+                0x15c2c,
+                0x15c5c,
+                0x12c2c);
         Delimiter delimiter = //CsvLineDelimiter.create(NullBehavior.KEEP);
                 Delimiters.getCsvLineDelimiter(NullBehavior.KEEP);
         for (int seed = 0; seed < 10000; seed++) {

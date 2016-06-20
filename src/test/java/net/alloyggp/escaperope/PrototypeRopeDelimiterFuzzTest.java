@@ -13,7 +13,6 @@ import net.alloyggp.escaperope.rope.StringRope;
 public class PrototypeRopeDelimiterFuzzTest {
     @Test
     public void testConvertingRandomStrings() {
-        //TODO: Add tricky Unicode characters
         List<Integer> charsToUseInString = Arrays.<Integer>asList(
                 0,
                 (int) ',',
@@ -23,7 +22,15 @@ public class PrototypeRopeDelimiterFuzzTest {
                 (int) 'c',
                 (int) ' ',
                 (int) '"',
-                0xb0, 0xb1, 0xb2, 0xb3);
+                0xb0, 0xb1, 0xb2, 0xb3,
+                0x2c5c,
+                0x5c2c,
+                0x1005c,
+                0x1002c,
+                0x12c5c,
+                0x15c2c,
+                0x15c5c,
+                0x12c2c);
         PrototypeRopeDelimiter delimiter = PrototypeRopeDelimiter.create();
 
         for (int i = 0; i < 10000; i++) {
@@ -37,7 +44,6 @@ public class PrototypeRopeDelimiterFuzzTest {
 
     @Test
     public void testConvertingRandomRopes() {
-        //TODO: Add tricky Unicode characters
         List<Integer> charsToUseInString = Arrays.<Integer>asList(
                 0,
                 (int) ',',
@@ -47,7 +53,15 @@ public class PrototypeRopeDelimiterFuzzTest {
                 (int) 'c',
                 (int) ' ',
                 (int) '"',
-                0xb0, 0xb1, 0xb2, 0xb3);
+                0xb0, 0xb1, 0xb2, 0xb3,
+                0x2c5c,
+                0x5c2c,
+                0x1005c,
+                0x1002c,
+                0x12c5c,
+                0x15c2c,
+                0x15c5c,
+                0x12c2c);
         PrototypeRopeDelimiter delimiter = PrototypeRopeDelimiter.create();
 
         for (int i = 0; i < 10000; i++) {

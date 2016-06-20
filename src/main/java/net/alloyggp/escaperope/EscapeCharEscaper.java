@@ -42,12 +42,13 @@ public class EscapeCharEscaper implements Escaper {
             return "";
         }
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < input.length(); i++) {
+        for (int i = 0; i < input.length(); /*i is incremented explicitly*/) {
             int c = input.codePointAt(i);
             if (allCharsToEscape.contains(c)) {
                 sb.appendCodePoint(escapeChar);
             }
             sb.appendCodePoint(c);
+            i += Character.charCount(c);
         }
         return sb.toString();
     }
