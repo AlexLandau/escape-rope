@@ -74,6 +74,26 @@ public class RopeList implements Iterable<Rope> {
         return list.iterator();
     }
 
+    public <T> Iterable<T> map(final Weaver<T> innerWeaver) {
+        return new Iterable<T>() {
+            @Override
+            public Iterator<T> iterator() {
+                final Iterator<Rope> untransformedItr = RopeList.this.iterator();
+                return new Iterator<T>() {
+                    @Override
+                    public boolean hasNext() {
+                        return untransformedItr.hasNext();
+                    }
+
+                    @Override
+                    public T next() {
+                        return innerWeaver.fromRope(untransformedItr.next());
+                    }
+                };
+            }
+        };
+    }
+
     public Rope getRope(int i) {
         return list.get(i);
     }
