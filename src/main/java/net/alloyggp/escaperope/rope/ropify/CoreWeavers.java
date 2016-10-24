@@ -87,6 +87,27 @@ public class CoreWeavers {
         }
     };
 
+    public static <T> Weaver<T[]> arrayOf(final Weaver<T> innerWeaver) {
+        return new ListWeaver<T[]>() {
+            @Override
+            protected void addToList(T[] array, RopeBuilder list) {
+                for (T object : array) {
+                    list.add(object, innerWeaver);
+                }
+            }
+
+            @Override
+            protected T[] fromRope(RopeList list) {
+                //TODO: Are there better options for this?
+                T[] array = (T[]) new Object[list.size()];
+                for (int i = 0; i < list.size(); i++) {
+                    array[i] = list.get(i, innerWeaver);
+                }
+                return array;
+            }
+        };
+    }
+
     //TODO: Should this have wildcards somewhere?
     public static <T> Weaver<List<T>> listOf(final Weaver<T> innerTypeWeaver) {
         return new ListWeaver<List<T>>() {
