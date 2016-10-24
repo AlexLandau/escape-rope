@@ -16,4 +16,8 @@ public class Delimiters {
     public static RopeDelimiter getPrototypeRopeDelimiter() {
         return PrototypeRopeDelimiter.create();
     }
+
+    public static RopeDelimiter getJsonArrayRopeDelimiter() {
+        return JsonArrayRopeDelimiter.create();
+    }
 }

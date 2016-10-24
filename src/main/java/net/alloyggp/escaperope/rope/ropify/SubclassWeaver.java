@@ -6,6 +6,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 //TODO: Decide on exact semantics
+//TODO: Consider a version with arbitrary predicates for determining delegation,
+//instead of just "instanceof"
 /*
  * One possibility is the first weaver that matches (i.e. in the exact order
  * weavers were added, and counting any supertype).
