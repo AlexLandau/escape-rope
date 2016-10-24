@@ -67,8 +67,11 @@ public class JsonArrayRopeDelimiter implements RopeDelimiter {
             String string = readAndUnescapeString(reader);
             return StringRope.create(string);
         } else if (c == 'n') {
-            //Assume 'null'
-            reader.skip(3);
+            char[] ullChars = new char[3];
+            reader.read(ullChars);
+            if (ullChars[0] != 'u' || ullChars[1] != 'l' || ullChars[2] != 'l') {
+                throw fail();
+            }
             return StringRope.create(null);
         } else if (c == '[') {
             //Handle this inline to reduce stack bloat

@@ -1,0 +1,8 @@
+<FindBugsFilter>
+  <Match>
+    <!-- Justified because we fail unless all three expected characters are read into the array. -->
+    <Class name="net.alloyggp.escaperope.JsonArrayRopeDelimiter" />
+    <Method name="getNextRope" />
+    <Bug pattern="RR_NOT_CHECKED" />
+  </Match>
+</FindBugsFilter>
