@@ -19,6 +19,14 @@ import java.util.Map.Entry;
  * We currently use the first scheme, and furthermore the type that is written
  * is the type of the weaver, not the type of the object (if they differ).
  */
+/**
+ * Warning: This is not yet semantically stable.
+ *
+ * <p>Also, if the subclass weavers are constants in the subclasses, don't put this
+ * weaver as a constant in a supertype. Due to the way Java loads classes, it will
+ * try to run the builder while the subclasses' weavers are still null. Try putting
+ * the subclass weaver in a utility class instead. Other workarounds may also work.
+ */
 @Deprecated //Not yet semantically stable.
 public class SubclassWeaver<T> extends ListWeaver<T> {
     private final Map<Class<? extends T>, Weaver<? extends T>> subclassWeavers;
