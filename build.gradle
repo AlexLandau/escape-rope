@@ -15,10 +15,6 @@ dependencies {
     testCompile "junit:junit:4.11"
 }
 
-task wrapper(type: Wrapper) {
-    gradleVersion = '2.10'
-}
-
 findbugs {
     excludeFilter = file("${rootProject.projectDir}/config/findbugs/excludeFilter.xml")
 }
